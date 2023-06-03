@@ -1,0 +1,17 @@
+{
+  "name": "AI-OD",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/fasihbaig85/AI-OD",
+  "author": "FasihUllah <fasih.ullah@empglabs.com>",
+  "license": "MIT",
+  "private": true,
+
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {    
+    "start": "yarn --cwd backend start",    
+    "build": "yarn --cwd frontend build"  
+  }
+}

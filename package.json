@@ -6,12 +6,13 @@
   "author": "FasihUllah <fasih.ullah@empglabs.com>",
   "license": "MIT",
   "private": true,
-
   "workspaces": [
+    "frontend",
+    "backend",
     "packages/*"
   ],
-  "scripts": {    
-    "start": "yarn --cwd backend start",    
-    "build": "yarn --cwd frontend build"  
+  "scripts": {
+    "start": "yarn --cwd backend start",
+    "build": "yarn --cwd frontend build"
   }
 }

@@ -1,0 +1,21 @@
+<div id="form-container">
+    <div class="chat-form flex-start">
+        <div *ngIf="isMediaServicesAvailable">
+            <app-audio-recording-panel>
+            </app-audio-recording-panel>
+        </div>
+        <div class="text-chat-container">
+            <textarea class="full-width" placeholder="Enter your message" [(ngModel)] = "chatText"></textarea>
+            <div>
+                <button 
+                mat-icon-button 
+                (click) ="sendChat($event)" 
+                [disabled] = "!chatText"
+                class="send-text-chat"
+                >
+                    <mat-icon>send</mat-icon>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

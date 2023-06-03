@@ -1,0 +1,10 @@
+@import "src/app/styles/common.scss";
+
+.content-container {
+    @extend .full-width;
+    background-color: white;
+    height: 100%;
+    margin: 0px 10px;
+    height: calc(100% - 20px);
+    padding: 10px;
+}

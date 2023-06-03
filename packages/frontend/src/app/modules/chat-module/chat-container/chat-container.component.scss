@@ -1,0 +1,22 @@
+@import "src/app/styles/theme.scss";
+
+#chat-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    height: 100vh;
+    background-color: $primary-theme-color;
+
+    .chat-content-container {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        width: 40%;
+        height: 100%;
+
+        .message-content-container {
+            height: 100%;
+        }
+    }
+}

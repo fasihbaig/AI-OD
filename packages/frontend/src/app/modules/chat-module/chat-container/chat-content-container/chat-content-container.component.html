@@ -1,0 +1,9 @@
+
+<div class="content-container">
+        <p *ngIf="!chatList || chatList.length === 0"> No chat Exist</p>
+        <ul *ngIf="chatList && chatList.length > 0" >
+            <ng-container *ngFor = " let item  of chatList ">
+                <li>{{ item.message }}</li>
+            </ng-container>
+        </ul>
+</div>

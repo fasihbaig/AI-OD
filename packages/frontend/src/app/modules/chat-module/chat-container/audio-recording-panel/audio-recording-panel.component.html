@@ -1,0 +1,23 @@
+<div class="flex-start">
+    <div class="recording-mic-container">
+        <button 
+                class="recording-mic"
+                mat-icon-button 
+                (click) ="recordAudio()"
+            >
+            <mat-icon>mic</mat-icon>
+        </button>
+    </div>
+    <div>
+        <audio #audioElement ></audio>
+         <div class="recording-bars-container">
+            <div
+                *ngFor="let bar of recordingBars" 
+                class="recording-bar" 
+                [ngClass] = "{ 'active': bar.active }" 
+                [ngStyle] = "{ 'height.px': bar.amplitude }"
+            >
+            </div>
+         </div>
+    </div>
+</div>

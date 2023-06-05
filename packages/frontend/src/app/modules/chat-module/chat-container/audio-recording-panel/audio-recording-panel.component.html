@@ -1,23 +1,35 @@
-<div class="flex-start">
-    <div class="recording-mic-container">
-        <button 
-                class="recording-mic"
-                mat-icon-button 
-                (click) ="recordAudio()"
-            >
-            <mat-icon>mic</mat-icon>
-        </button>
-    </div>
-    <div>
-        <audio #audioElement ></audio>
-         <div class="recording-bars-container">
-            <div
-                *ngFor="let bar of recordingBars" 
-                class="recording-bar" 
-                [ngClass] = "{ 'active': bar.active }" 
-                [ngStyle] = "{ 'height.px': bar.amplitude }"
-            >
+<div class="flex-start full-width">
+    <button 
+        class="recording-mic"
+        [ngClass] = "{ 'stop-recording': recordingStatusKeys.RECORDING === recordingStatus }"
+        mat-icon-button 
+        (click) ="changeRecordingStatus()"
+        >
+        <mat-icon>mic</mat-icon>
+    </button>
+    <div class="recording-bar-panel" *ngIf="recordingStatusKeys.RECORDING === recordingStatus ">
+        <div class="recording-bar-sub-panel">
+            <button 
+                    mat-icon-button 
+                    class="send-audio-chat"
+                >
+                <mat-icon>send</mat-icon>
+            </button>
+            <div class="recording-bars-container">
+               <div
+                   *ngFor="let bar of recordingBars" 
+                   class="recording-bar" 
+                   [ngClass] = "{ 'active': bar.active }" 
+                   [ngStyle] = "{ 'height.px': bar.amplitude }"
+               >
+               </div>
             </div>
-         </div>
+            <button class="stop-button" mat-icon-button >
+                <mat-icon>stop</mat-icon>
+            </button>
+            <div>
+               {{timeElapse}}
+            </div>
+       </div>
     </div>
 </div>

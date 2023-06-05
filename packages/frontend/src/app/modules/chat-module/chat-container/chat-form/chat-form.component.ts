@@ -1,4 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ContentType, MessageType, RecordingStatus } from '@app/enums';
+import { ChatItem } from '@app/interface/chat';
 import { RecordingService } from '@app/services';
 
 @Component({
@@ -8,9 +10,13 @@ import { RecordingService } from '@app/services';
 })
 export class ChatFormComponent implements OnInit {
  
-  @Input() chatList: any[] = [];
+  @Input() chatList: ChatItem[] = [];
 
   public chatText: string = "";
+
+  public recordingStatus: RecordingStatus = RecordingStatus.STOPPED;
+
+  public recordingStatusKeys = RecordingStatus;
 
   constructor(
     private recordingService: RecordingService
@@ -24,13 +30,33 @@ export class ChatFormComponent implements OnInit {
    * function to send text chat
    * @param value 
    */
-  sendChat(value: any) {
-    this.chatList.push({message: this.chatText, type: "text"});
+  sendChat() {
+    this.chatList.push({
+      id: -1,
+      contentType: ContentType.TEXT,
+      message: this.chatText,
+      date: new Date(),
+      messageType: MessageType.SENT,
+      image: null,
+      username: ""
+    });
     this.chatText = "";
   }
 
   get isMediaServicesAvailable(): boolean {
     return this.recordingService.checkRecordingPossible();
+  }
+
+  onRecordingStatusChange(recordingStatus: RecordingStatus): void {
+    this.recordingStatus = recordingStatus;
+  }
+
+  sendAudioChat(item: ChatItem) {
+    this.chatList.push(item);
+  }
+
+  get isRecordingChat(): boolean {
+    return  [RecordingStatus.RECORDING, RecordingStatus.PAUSED].includes(this.recordingStatus)
   }
 
 }

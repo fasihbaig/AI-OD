@@ -2,34 +2,86 @@
 @import "src/app/styles/theme.scss";
 
 .recording-bars-container {
+    @extend .full-height;
+    @extend .full-width;
     display: flex;
     align-items: center;
+    overflow: hidden;
+    flex-direction: row-reverse;
+  }
+
+  .recording-bar-panel {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    border: 1px solid #8a8a8a;
+    border-radius: 30px;
+    background-color: #2C2C2C;  
+    overflow: hidden;
+    padding-left: 10px;
+
+    .recording-bar-sub-panel {
+      width: 100%;
+      overflow: hidden;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-direction: row-reverse;
+      padding: 0px 5px;
+      box-sizing: border-box;
+    }
   }
   
   .recording-bar {
-    width: 4px;
+    width: 2px;
     min-height: 3px;
     background-color: gray;
     margin-right: 2px;
+    border-radius: 1px;
+    scroll-snap-type: x mandatory;
+    white-space: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    flex-shrink: 0;
+  }
+
+  .recording-bar::-webkit-scrollbar {
+    display: none; /* Hide the scrollbar on WebKit browsers */
   }
   
   .recording-bar.active {
-    background-color: black;
+    background-color: white;
   }
 
-  .recording-mic-container {
+  .recording-mic {
+    color: white;
+    font-size: 25px;
     border-radius: 50%;
-    border: 1px solid #8a8a8a;
+    
     background-color: #2C2C2C;
     height: 52px;
     width: 52px;
     box-sizing: border-box;
-    margin-right: 5px;
+    margin-right: 15px;
+  }
 
+  .stop-recording {
+    background-color: #ff1c1c;
+    border: 1px transparent white;
+  }
 
-    .recording-mic {
-      color: white;
-      padding: 4px 0px 0px 10px;
-      font-size: 25px;
-    }
+  .stop-button {
+    border: 2px solid white;
+    margin: 0px 5px 0px 5px;
+    line-height: 0px;
+    width: 28px;
+    height: 28px;
+  }
+
+  .send-audio-chat {
+    color: #0D99FF;
+    padding: 0px;
+    font-size: 30px;
+    line-height: 20px;
   }

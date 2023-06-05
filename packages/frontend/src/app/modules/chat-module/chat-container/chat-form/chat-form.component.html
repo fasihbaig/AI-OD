@@ -1,19 +1,27 @@
 <div id="form-container">
     <div class="chat-form flex-start">
-        <div *ngIf="isMediaServicesAvailable">
-            <app-audio-recording-panel>
+        <div 
+            *ngIf="isMediaServicesAvailable"
+            class="audio-recording-container"
+            [ngClass]="{'full-width': isRecordingChat}"
+            >
+            <app-audio-recording-panel 
+                class="full-width"
+                (onRecordingStatusChange)="onRecordingStatusChange($event)"
+                (sendAudioChat)="sendAudioChat($event)"
+                >
             </app-audio-recording-panel>
         </div>
-        <div class="text-chat-container">
+        <div class="text-chat-container" *ngIf="!isRecordingChat">
             <textarea class="full-width" placeholder="Enter your message" [(ngModel)] = "chatText"></textarea>
             <div>
                 <button 
-                mat-icon-button 
-                (click) ="sendChat($event)" 
-                [disabled] = "!chatText"
-                class="send-text-chat"
+                    mat-icon-button 
+                    (click) ="sendChat()" 
+                    [disabled] = "!chatText"
+                    class="send-text-chat"
                 >
-                    <mat-icon>send</mat-icon>
+                <mat-icon>send</mat-icon>
                 </button>
             </div>
         </div>

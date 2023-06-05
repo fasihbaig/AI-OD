@@ -1,10 +1,20 @@
 @import "src/app/styles/common.scss";
+@import "src/app/styles/theme.scss";
 
 .content-container {
     @extend .full-width;
-    background-color: white;
+    background-color: $secondary-theme-color;
     height: 100%;
-    margin: 0px 10px;
+    margin: 0px 0px;
     height: calc(100% - 20px);
-    padding: 10px;
+    padding: 10px 0px;
+    display: flex;
+    flex-direction: column-reverse;
+
+    .no-chat-exists {
+        text-align: center;
+        font-size: 14px;
+        color:  $gray-3;
+    }
 }
+

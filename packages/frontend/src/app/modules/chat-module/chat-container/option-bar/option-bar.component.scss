@@ -1,0 +1,13 @@
+@import "src/app/styles/theme.scss";
+
+.option-bar-container {
+    height: 60px;
+    border-bottom: 1px solid #f2ebeb30;
+    display: flex;
+    justify-content: flex-end;
+
+    .clear-button {
+        color: $gray-2;
+        font-weight: 300;
+    }
+}

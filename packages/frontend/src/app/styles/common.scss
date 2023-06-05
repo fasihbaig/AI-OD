@@ -2,6 +2,10 @@
     width: 100%;
 }
 
+.full-height {
+    height: 100%;
+}
+
 .flex-start {
     display: flex;
     justify-content: flex-start;
@@ -9,4 +13,9 @@
 
 .flex-center-align {
     align-items: center;
+}
+
+.flex-end {
+    display: flex;
+    justify-content: flex-end;
 }

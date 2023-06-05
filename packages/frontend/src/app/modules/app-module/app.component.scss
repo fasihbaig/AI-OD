@@ -1,0 +1,11 @@
+@import "src/app/styles/theme.scss";
+
+.master-container {
+    height: calc(100vh - 15px);
+    background-color: $primary-theme-color;
+
+    .footer {
+        height: 15px;
+        background-color: $primary-theme-color;
+    }
+}

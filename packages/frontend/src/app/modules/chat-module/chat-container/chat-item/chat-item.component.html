@@ -1,0 +1,41 @@
+<div 
+    class="chat-item-container" 
+    *ngIf="item"
+    [ngClass] = "{ 'flex-start': chatItemPosition === chatItemPositionKeys.LEFT, 'flex-end': chatItemPosition === chatItemPositionKeys.RIGHT }"
+    >
+    <div 
+        class="chat-item"
+        [ngClass] = "{ 'flex-start': chatItemPosition === chatItemPositionKeys.LEFT, 'flex-end': chatItemPosition === chatItemPositionKeys.RIGHT }"
+    >
+        <div *ngIf ="item.messageType === messageTypeKey.RECEIVED" >
+            <div class="profile-pic received-icon">
+                <img src="assets/images/zameen-icon.png"  alt="zameen-icon"/>
+            </div>
+        </div>
+
+        <div>
+            <div class="text" *ngIf="item.contentType === contentTypeKey.TEXT">
+                {{item.message}}
+            </div>
+            <div *ngIf="item.contentType === contentTypeKey.AUDIO">
+                <audio  #audioPlayer  [src]="audioSource"  controls></audio>
+            </div>
+        </div>
+        <div *ngIf ="item.messageType === messageTypeKey.SENT">
+            <div class="profile-pic" *ngIf="item.image; else userNameAlias">
+                <img [src]="item.image" alt="Profile Picture">
+            </div>
+        </div>
+    </div>
+
+
+    <ng-template #userNameAlias>
+        <div class="default-pic-icon">
+            <mat-icon>
+                <span class="material-symbols-outlined">
+                person
+                </span>
+            </mat-icon>
+        </div>
+      </ng-template>
+</div>

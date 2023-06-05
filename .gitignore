@@ -1,2 +1,6 @@
 packages/frontend/.angular/
 packages/frontend/node_modules/
+
+packages/frontend/node_modules/.*
+node_modules/.*
+node_modules/

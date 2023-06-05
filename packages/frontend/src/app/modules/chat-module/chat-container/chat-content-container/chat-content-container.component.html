@@ -1,9 +1,9 @@
 
 <div class="content-container">
-        <p *ngIf="!chatList || chatList.length === 0"> No chat Exist</p>
-        <ul *ngIf="chatList && chatList.length > 0" >
+        <p *ngIf="!chatList || chatList.length === 0" class="no-chat-exists"> No chat Exist</p>
+        <div *ngIf="chatList && chatList.length > 0" >
             <ng-container *ngFor = " let item  of chatList ">
-                <li>{{ item.message }}</li>
+                    <app-chat-item [item] ="item"> </app-chat-item>
             </ng-container>
-        </ul>
+        </div>
 </div>

@@ -19,7 +19,8 @@ import { ChatContainerComponent } from './chat-container/chat-container.componen
 import { ChatContentContainerComponent } from './chat-container/chat-content-container/chat-content-container.component';
 import { AudioRecordingPanelComponent } from './chat-container/audio-recording-panel/audio-recording-panel.component';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { AppRecordingOscillatorComponent } from './app-recording-oscillator/app-recording-oscillator.component';
+import { ChatItemComponent } from './chat-container/chat-item/chat-item.component';
+import { OptionBarComponent } from './chat-container/option-bar/option-bar.component';
 
 @NgModule({
   declarations: [
@@ -28,8 +29,8 @@ import { AppRecordingOscillatorComponent } from './app-recording-oscillator/app-
     ChatContainerComponent,
     ChatContentContainerComponent,
     AudioRecordingPanelComponent,
-    AppRecordingOscillatorComponent,
-    AppRecordingOscillatorComponent
+    ChatItemComponent,
+    OptionBarComponent
   ],
   imports: [
     CommonModule,

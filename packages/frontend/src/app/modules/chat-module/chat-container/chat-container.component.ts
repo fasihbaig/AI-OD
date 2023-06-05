@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ContentType, MessageType } from '@app/enums';
+import { ChatItem } from '@app/interface/chat';
 
 @Component({
   selector: 'app-chat-container',
@@ -6,10 +8,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./chat-container.component.scss']
 })
 export class ChatContainerComponent implements OnInit {
-  public chatList: any[] = [ { type: "text", message: "123"} ];
+  public chatList: ChatItem[] = [];
+  
   constructor() { }
 
   ngOnInit(): void {
+
+  }
+
+  onClearChat() {
+    this.chatList = [];
   }
 
 }

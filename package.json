@@ -6,11 +6,27 @@
   "author": "FasihUllah <fasih.ullah@empglabs.com>",
   "license": "MIT",
   "private": true,
-  "workspaces": [
-    "frontend",
-    "backend",
-    "packages/*"
-  ],
+  "workspaces":
+  {
+    "packages": [
+      "packages/*"
+    ],
+    "nohoist": [
+      "**/@angular/core",
+      "**/@angular/common",
+      "**/@angular/compiler",
+      "**/@angular/platform-browser",
+      "**/@angular/platform-browser-dynamic",
+      "**/@angular/router",
+      "**/@angular/forms",
+      "**/@angular/http",
+      "**/@angular/animations",
+      "**/@angular/localize",
+      "**/@angular/cli",
+      "**/@angular/compiler-cli",
+      "**/@angular/cdk"
+    ]
+  },
   "scripts": {
     "start": "yarn --cwd backend start",
     "build": "yarn --cwd frontend build"

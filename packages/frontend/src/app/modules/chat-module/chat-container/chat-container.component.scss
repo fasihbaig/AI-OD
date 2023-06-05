@@ -5,14 +5,14 @@
     display: flex;
     justify-content: center;
     flex-direction: row;
-    height: 100vh;
+    height: 100%;
     background-color: $primary-theme-color;
 
     .chat-content-container {
         display: flex;
         justify-content: center;
         flex-direction: column;
-        width: 40%;
+        width: 50%;
         height: 100%;
 
         .message-content-container {

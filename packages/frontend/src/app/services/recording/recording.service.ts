@@ -1,5 +1,6 @@
 import { ErrorHandler, Injectable } from "@angular/core";
 import { Observable, Subscriber } from "rxjs";
+import { scaleValue } from "src/common";
 
 
 @Injectable({
@@ -47,6 +48,7 @@ export class RecordingService {
 
                 //resolve promise with the single audio blob representing the recorded audio
                 observer.next(audioBlob);
+                observer.complete();
             });
 
             this.mediaRecorderInstance.stop();
@@ -110,7 +112,7 @@ export class RecordingService {
       source.connect(analyserNode);
      
 
-      setInterval(() => {
+      const intervalInstance = setInterval(() => {
         const dataArray = new Uint8Array(analyserNode.frequencyBinCount);
         analyserNode.getByteTimeDomainData(dataArray);
 
@@ -119,12 +121,13 @@ export class RecordingService {
             const amplitude = (dataArray[i] - 128) / 128;
             sum += Math.abs(amplitude);
         }
-        
-        console.log((sum / dataArray.length))
-        const averageAmplitude = this.scaleValue(((sum / dataArray.length) * 10), 0, 1, 0, 100);
-        console.log(averageAmplitude)
+           
+        const averageAmplitude = scaleValue(((sum / dataArray.length) * 10), 0, 1, 0, 100);
 
-        observer.next({type: "voice_detection", value: averageAmplitude})
+        observer.next({type: "voice_detection", value: averageAmplitude});
+        if(!this.audioStream) {
+            clearInterval(intervalInstance);
+        }
       }, 200)
     }
 
@@ -190,15 +193,4 @@ export class RecordingService {
         audioStreams.getTracks() //get all tracks from the stream
                     .forEach(track => track.stop()); //stop each one
     }
-
-    private scaleValue(value: number, inMin: number, inMax: number, outMin: number, outMax: number) {
-        // Calculate the input and output ranges
-        const inRange = inMax - inMin;
-        const outRange = outMax - outMin;
-      
-        // Scale the value to the output range
-        const scaledValue = (value - inMin) * (outRange / inRange) + outMin;
-      
-        return scaledValue;
-      }
 }

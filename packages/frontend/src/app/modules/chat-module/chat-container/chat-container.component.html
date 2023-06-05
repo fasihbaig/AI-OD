@@ -1,5 +1,6 @@
 <div id="chat-container">
     <div class="chat-content-container">
+        <app-option-bar (onClearChat) = "onClearChat()"></app-option-bar>
         <div class="message-content-container">
             <app-chat-content-container [chatList]="chatList">
             </app-chat-content-container>

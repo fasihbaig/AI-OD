@@ -73,7 +73,8 @@
               "browserTarget": "ai-chat-frontend:build:production"
             },
             "development": {
-              "browserTarget": "ai-chat-frontend:build:development"
+              "browserTarget": "ai-chat-frontend:build:development",
+              "proxyConfig": "proxy.conf.json"
             }
           },
           "defaultConfiguration": "development"

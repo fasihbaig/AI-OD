@@ -40,8 +40,7 @@ import { OptionBarComponent } from './chat-container/option-bar/option-bar.compo
     MatFormFieldModule,
     FormsModule,
     MatIconModule,
-    MatProgressBarModule
-  //  ScrollingModule
+    MatProgressBarModule,
   ]
 })
 export class ChatModuleModule { }

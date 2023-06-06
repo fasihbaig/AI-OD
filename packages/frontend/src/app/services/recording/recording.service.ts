@@ -14,6 +14,8 @@ export class RecordingService {
 
     private audioBlobs: Blob[] = [];
 
+    private MIMI_TYPE = "audio/webm"
+
     constructor() {}
 
     /**
@@ -40,14 +42,13 @@ export class RecordingService {
                 observer.error("No recording is in progress");
                 return;
             }
-            const mimeType = this.mediaRecorderInstance.mimeType;
 
             this.mediaRecorderInstance.addEventListener("stop", () => {
                 //create a single blob object, as we might have gathered a few Blob objects that needs to be joined as one
-                const audioBlob = new Blob(this.audioBlobs, { type: mimeType });
+                const recordingWebmFile = new Blob(this.audioBlobs, { type: this.MIMI_TYPE });
 
                 //resolve promise with the single audio blob representing the recorded audio
-                observer.next(audioBlob);
+                observer.next(recordingWebmFile);
                 observer.complete();
             });
 
@@ -111,7 +112,6 @@ export class RecordingService {
 
       source.connect(analyserNode);
      
-
       const intervalInstance = setInterval(() => {
         const dataArray = new Uint8Array(analyserNode.frequencyBinCount);
         analyserNode.getByteTimeDomainData(dataArray);
@@ -136,7 +136,7 @@ export class RecordingService {
     }
 
     private startMediaRecording(stream: MediaStream) {
-        this.mediaRecorderInstance = new MediaRecorder(stream, {} as MediaRecorderOptions);
+        this.mediaRecorderInstance = new MediaRecorder(stream, { mimeType: this.MIMI_TYPE} as MediaRecorderOptions);
         this.mediaRecorderInstance.addEventListener("dataavailable", event => {
             //store audio Blob object
             this.audioBlobs.push(event.data);

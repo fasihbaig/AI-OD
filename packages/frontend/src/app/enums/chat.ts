@@ -1,11 +1,12 @@
 export enum ContentType {
     AUDIO = "audio",
-    TEXT = "text"
+    TEXT = "text",
+    LOADING = "loading"
 }
 
 export enum MessageType {
     SENT = "sent",
-    RECEIVED = "received"
+    RECEIVED = "received",
 }
 
 export enum ChatItemPosition {

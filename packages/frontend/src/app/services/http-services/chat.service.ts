@@ -10,7 +10,11 @@ export class ChatService {
 
   constructor(private http: HttpClient) {}
 
-  postChat(chatItem: ChatItem):Observable<any>{
+  postChat(chatItem: ChatItem & {file?: any}, file?: any):Observable<any>{
+    if(file) {
+      delete chatItem.message;
+      chatItem.file = file;
+    }
     return this.http.post("api/chat", chatItem);
   }
 

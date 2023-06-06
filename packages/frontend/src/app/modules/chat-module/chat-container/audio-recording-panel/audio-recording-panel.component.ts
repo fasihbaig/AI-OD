@@ -39,7 +39,7 @@ export class AudioRecordingPanelComponent implements OnInit {
        this.recordAudio();
      } else {
        const subscription = this.recordingService.stopRecording().subscribe({
-        next: (blob: Blob) => {
+        next: (audioRecordingWebmFile: Blob) => {
           console.log("Recording ended");
           this.recordingBars = [];
           this.recordingStatus = RecordingStatus.STOPPED;
@@ -52,7 +52,7 @@ export class AudioRecordingPanelComponent implements OnInit {
             date: new Date(),
             username: "",
             contentType: ContentType.AUDIO,
-            message: blob,
+            message: audioRecordingWebmFile,
             messageType: MessageType.SENT
           });
         },

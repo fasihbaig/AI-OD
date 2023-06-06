@@ -47,13 +47,12 @@ export class AudioRecordingPanelComponent implements OnInit {
           if(this.timeElapseIntervalInstance) {
             clearInterval(this.timeElapseIntervalInstance);
           }
-           const audio = convertBlobToAudio(blob);
            this.sendAudioChat.emit({
             id: -1,
             date: new Date(),
             username: "",
             contentType: ContentType.AUDIO,
-            audio: blob,
+            message: blob,
             messageType: MessageType.SENT
           });
         },

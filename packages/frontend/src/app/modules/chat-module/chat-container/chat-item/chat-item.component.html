@@ -14,9 +14,7 @@
         </div>
 
         <div>
-            <div class="text" *ngIf="item.contentType === contentTypeKey.TEXT">
-                {{item.message}}
-            </div>
+            <pre class="text" *ngIf="item.contentType === contentTypeKey.TEXT">{{item.message}}</pre>
             <div *ngIf="item.contentType === contentTypeKey.AUDIO">
                 <audio  #audioPlayer  [src]="audioSource"  controls></audio>
             </div>

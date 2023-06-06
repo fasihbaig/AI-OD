@@ -10,8 +10,8 @@ import { ChatItem } from '@app/interface/chat';
 export class ChatItemComponent implements OnInit {
   // @ts-ignore
   @ViewChild('audioPlayer') audioPlayer: ElementRef<HTMLAudioElement>;
-
-  @Input() item: ChatItem | null = null; 
+  //@ts-ignore
+  @Input() item: ChatItem; 
 
   public  chatItemPositionKeys = ChatItemPosition;
   
@@ -26,13 +26,15 @@ export class ChatItemComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    if(this.item?.audio && this.item.messageType === MessageType.SENT) {
-      this.updateAudioBlob(this.item.audio as Blob)
+    const { message = null, messageType, contentType } = this.item;
+    if( message && messageType === MessageType.SENT, contentType === ContentType.AUDIO) {
+      this.updateAudioBlob(this.item.message as Blob)
     }
   }
 
   ngAfterViewInit() {
-    if(!(this.item?.audio && this.item.messageType === MessageType.SENT && this.totalTime)) {
+    const { message = null, messageType, contentType } = this.item;
+    if(!(message && messageType === MessageType.SENT && this.totalTime) || contentType === ContentType.TEXT) {
       return;
     }
     this.audioPlayer.nativeElement.addEventListener('loadedmetadata', () => {

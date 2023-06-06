@@ -10,6 +10,7 @@
     padding: 10px 0px;
     display: flex;
     flex-direction: column-reverse;
+    overflow-y: scroll;
 
     .no-chat-exists {
         text-align: center;

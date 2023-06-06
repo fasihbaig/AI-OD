@@ -47,7 +47,15 @@ export class ChatFormComponent implements OnInit, OnDestroy {
     this.chatList.push(chantItem);
     this.chatService.postChat(chantItem).subscribe({
       next: (res) => {
-        console.log(res)
+        if(!res) {
+          return;
+        }
+        this.chatList.push({
+          id: res.id,
+          message: res.message,
+          contentType: ContentType.TEXT,
+          messageType: MessageType.RECEIVED
+        } as ChatItem);
       }
     })
     this.chatText = "";

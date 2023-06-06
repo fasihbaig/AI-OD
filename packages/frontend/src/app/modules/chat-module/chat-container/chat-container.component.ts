@@ -8,8 +8,75 @@ import { ChatItem } from '@app/interface/chat';
   styleUrls: ['./chat-container.component.scss']
 })
 export class ChatContainerComponent implements OnInit {
-  public chatList: ChatItem[] = [];
-  
+  public chatList: ChatItem[] = [ 
+    { 
+      contentType: ContentType.TEXT,
+      message: "where do you want to go?", 
+      id: 1,
+      date: new Date(),
+      messageType: MessageType.RECEIVED,
+      image: null,
+      username: "user"
+    },
+    { 
+      contentType: ContentType.TEXT,
+      message: "where do you want to go?", 
+      id: 1,
+      date: new Date(),
+      messageType: MessageType.RECEIVED,
+      image: null,
+      username: "user"
+    },
+    { 
+      contentType: ContentType.TEXT,
+      message: "where do you want to go?", 
+      id: 1,
+      date: new Date(),
+      messageType: MessageType.RECEIVED,
+      image: null,
+      username: "user"
+    },
+    { 
+      contentType: ContentType.TEXT,
+      message: `
+      123 sdlkfjsldkj sdfklsdjf lkjlsd lsdfjsldkfj sdflksdjflskjf sdflskdjflsdkj lfjslfjk sldkfj lkjsdlfjsdlfjkl
+      123 sdlkfjsldkj sdfklsdjf lkjlsd lsdfjsldkfj sdflksdjflskjf sdflskdjflsdkj lfjslfjk sldkfj lkjsdlfjsdlfjkl
+      123 sdlkfjsldkj sdfklsdjf lkjlsd lsdfjsldkfj sdflksdjflskjf sdflskdjflsdkj lfjslfjk sldkfj lkjsdlfjsdlfjkl
+      123 sdlkfjsldkj sdfklsdjf lkjlsd lsdfjsldkfj sdflksdjflskjf sdflskdjflsdkj lfjslfjk sldkfj lkjsdlfjsdlfjkl
+      123 sdlkfjsldkj sdfklsdjf lkjlsd lsdfjsldkfj sdflksdjflskjf sdflskdjflsdkj lfjslfjk sldkfj lkjsdlfjsdlfjkl
+      123 sdlkfjsldkj sdfklsdjf lkjlsd lsdfjsldkfj sdflksdjflskjf sdflskdjflsdkj lfjslfjk sldkfj lkjsdlfjsdlfjkl
+      123 sdlkfjsldkj sdfklsdjf lkjlsd lsdfjsldkfj sdflksdjflskjf sdflskdjflsdkj lfjslfjk sldkfj lkjsdlfjsdlfjkl
+      123 sdlkfjsldkj sdfklsdjf lkjlsd lsdfjsldkfj sdflksdjflskjf sdflskdjflsdkj lfjslfjk sldkfj lkjsdlfjsdlfjkl
+      123 sdlkfjsldkj sdfklsdjf lkjlsd lsdfjsldkfj sdflksdjflskjf sdflskdjflsdkj lfjslfjk sldkfj lkjsdlfjsdlfjkl
+      123 sdlkfjsldkj sdfklsdjf lkjlsd lsdfjsldkfj sdflksdjflskjf sdflskdjflsdkj lfjslfjk sldkfj lkjsdlfjsdlfjkl
+      123 sdlkfjsldkj sdfklsdjf lkjlsd lsdfjsldkfj sdflksdjflskjf sdflskdjflsdkj lfjslfjk sldkfj lkjsdlfjsdlfjkl
+      123 sdlkfjsldkj sdfklsdjf lkjlsd lsdfjsldkfj sdflksdjflskjf sdflskdjflsdkj lfjslfjk sldkfj lkjsdlfjsdlfjkl
+      `, 
+      id: 1,
+      date: new Date(),
+      messageType: MessageType.SENT,
+      image: null,
+      username: "user"
+    },
+    { 
+      contentType: ContentType.TEXT,
+      message: "where do you want to go?", 
+      id: 1,
+      date: new Date(),
+      messageType: MessageType.RECEIVED,
+      image: null,
+      username: "user"
+    },
+    { 
+      contentType: ContentType.TEXT,
+      message: "where do you want to go?", 
+      id: 1,
+      date: new Date(),
+      messageType: MessageType.RECEIVED,
+      image: null,
+      username: "user"
+    }
+  ];
   constructor() { }
 
   ngOnInit(): void {
@@ -17,7 +84,7 @@ export class ChatContainerComponent implements OnInit {
   }
 
   onClearChat() {
-    this.chatList = [];
+    this.chatList = []
   }
 
 }

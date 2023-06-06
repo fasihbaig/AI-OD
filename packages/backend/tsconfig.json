@@ -1,0 +1,38 @@
+{
+  "compilerOptions": {
+    /* Visit https://aka.ms/tsconfig to read more about this file */
+
+    /* Language and Environment */
+    "target": "es2016",                                  /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */
+  
+    /* Modules */
+    "module": "commonjs",                                /* Specify what module code is generated. */
+    "rootDir": "./src",                                  /* Specify the root folder within your source files. */
+    // "types": [],                                      /* Specify type package names to be included without being referenced in a source file. */
+ 
+    /* JavaScript Support */
+     "allowJs": true,                                  /* Allow JavaScript files to be a part of your program. Use the 'checkJS' option to get errors from these files. */
+ 
+    /* Emit */
+                      /* Only output d.ts files and not JavaScript files. */
+     "sourceMap": true,                                /* Create source map files for emitted JavaScript files. */
+    // "outFile": "./",                                  /* Specify a file that bundles all outputs into one JavaScript file. If 'declaration' is true, also designates a file that bundles all .d.ts output. */
+     "outDir": "./build",                                   /* Specify an output folder for all emitted files. */
+ 
+    /* Interop Constraints */
+    "esModuleInterop": true,                             /* Emit additional JavaScript to ease support for importing CommonJS modules. This enables 'allowSyntheticDefaultImports' for type compatibility. */
+    "forceConsistentCasingInFileNames": true,            /* Ensure that casing is correct in imports. */
+
+    /* Type Checking */
+    "strict": true,                                      /* Enable all strict type-checking options. */
+     "noImplicitAny": true,                            /* Enable error reporting for expressions and declarations with an implied 'any' type. */
+     "strictNullChecks": true,                         /* When type checking, take into account 'null' and 'undefined'. */
+     "allowUnusedLabels": true,                        /* Disable error reporting for unused labels. */
+     "allowUnreachableCode": true,                     /* Disable error reporting for unreachable code. */
+
+    /* Completeness */
+    // "skipDefaultLibCheck": true,                      /* Skip type checking .d.ts files that are included with TypeScript. */
+    "skipLibCheck": true                                 /* Skip type checking all .d.ts files. */
+  },
+  "exclude": ["sequelize.js"]
+}

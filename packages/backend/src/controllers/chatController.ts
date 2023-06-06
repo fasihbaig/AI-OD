@@ -2,11 +2,11 @@ import { AIChatRole, OPEN_AI_PAYLOAD_MODEL, OpenAIService } from "../integration
 
 import { Request, Response } from "express";
  
-const CHAT_LIST = [];
+const CHAT_LIST: any[] = [];
 
 export const chatWithOpenAI = async (req: Request, res: Response ) => {
     const { message, messageType, contentType, date } = req.body as never;
-
+    const { session } = req.headers;
     /*
         id: number | null;
         contentType: ContentType;
@@ -19,13 +19,30 @@ export const chatWithOpenAI = async (req: Request, res: Response ) => {
         messageType, 
         contentType, 
         date, 
-        id: Math.floor(Math.random() * 10000000)
+        id: Math.floor(Math.random() * 10000000),
+        sessionId: session,
     }
-    CHAT_LIST.push(chatItem);
     const openAiService  = OpenAIService.getInstance();
+
+    const messages = []
+    // last 5 messages by sessionId
+    for(let index = CHAT_LIST.length -1; index >= 0; index -= 1) {
+        const messageItem = CHAT_LIST[index];
+
+        if(
+            messageItem.contentType === "text" 
+            && messageItem.messageType === "sent"
+            && messageItem.sessionId === session ) {
+                messages.unshift({ role: AIChatRole.USER, content: messageItem.message})
+            }
+    }
+
+    CHAT_LIST.push(chatItem);
+    messages.push({ role: AIChatRole.USER, content: message });
+
     const chatResponse = await openAiService.getQueryResponse({
         model: OPEN_AI_PAYLOAD_MODEL,
-        messages: [{ role: AIChatRole.USER, content: message }]
+        messages
     });
 
     const responseChatItem = chatResponse?{ 
@@ -34,7 +51,8 @@ export const chatWithOpenAI = async (req: Request, res: Response ) => {
         contentType: "text", 
         date: new Date(), 
         replyId: chatItem.id,
-        id:  Math.floor(Math.random() * 10000000)
+        id:  Math.floor(Math.random() * 10000000),
+        sessionId: session
     }: null;
     if(responseChatItem) {
         CHAT_LIST.push(responseChatItem);

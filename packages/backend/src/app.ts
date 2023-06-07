@@ -5,12 +5,21 @@ import * as bodyParser from "body-parser";
 import * as dotenv from "dotenv";
 import routerAPI from "./routes/routes";
 import compression from "compression";
+import path from "path";
 
 dotenv.config();
 
 const app = express();
 
-app.use(compression())
+app.use(compression());
+
+// Serve static files from the 'public' directory
+app.use(express.static(path.join(__dirname, 'public')));
+
+// Serve index.html as the default route
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
 
 app.use(bodyParser.urlencoded({ extended: false}));
 app.use(bodyParser.json());

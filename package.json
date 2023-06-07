@@ -24,7 +24,8 @@
       "**/@angular/localize",
       "**/@angular/cli",
       "**/@angular/compiler-cli",
-      "**/@angular/cdk"
+      "**/@angular/cdk",
+      "**/microsoft-cognitiveservices-speech-sdk"
     ]
   },
   "scripts": {

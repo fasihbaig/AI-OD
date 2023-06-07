@@ -4,6 +4,8 @@ import { AUDIO_TRANSCRIPTION_MODEL, OPEN_AI_AUDIO_TRANSCRIPTION_URL, OPEN_AI_CHA
 import { OpenAIChatResponse, OpenAIPayload } from "./types";
 import FormData  from "form-data";
 
+import { get } from "lodash";
+
 import  fs from "fs";
 
 export class OpenAIService {
@@ -29,7 +31,9 @@ export class OpenAIService {
             const response = await axios.post(OPEN_AI_CHAT_API, openAiPayload, { headers: this.getOpenAIHeaderValues() });
             return response.data; 
         } catch (error) {
-            return null;
+            console.log(error);
+            const message = get(error, "response.data.error.message") || "No information found";
+            throw Error(message)
         }
     }
 

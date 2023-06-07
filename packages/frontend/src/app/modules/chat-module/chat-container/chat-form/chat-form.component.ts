@@ -68,6 +68,10 @@ export class ChatFormComponent implements OnInit, OnDestroy {
           contentType: ContentType.TEXT,
           messageType: MessageType.RECEIVED
         } as ChatItem);
+      },
+      error: (error) => {
+        this.removeLoadingChatItem();
+        console.log(error);
       }
     })
     this.chatText = "";
@@ -100,6 +104,10 @@ export class ChatFormComponent implements OnInit, OnDestroy {
           if(res) {
             this.chatList.push(res)
           }
+        },
+        error: (error) => {
+          this.removeLoadingChatItem();
+          console.log(error);
         }
       })
     )

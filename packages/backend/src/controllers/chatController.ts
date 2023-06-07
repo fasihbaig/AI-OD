@@ -37,11 +37,13 @@ export const chatWithOpenAI = async (req: Request, res: Response ) => {
     };
 
     if(contentType === "audio") {
+        console.log("Start transcription audio")
         chatItem.file = req.body.file;
         const audioTranscription = await openAiService.getAudioTranscription(chatItem.file);
         receivedChatItem.audioTranscription = audioTranscription;
         receivedChatItem.contentType = "text";
         message = audioTranscription;
+        console.log(`Transcription Text:${audioTranscription}`);
     }    
 
     // last 5 messages by sessionId
@@ -59,15 +61,18 @@ export const chatWithOpenAI = async (req: Request, res: Response ) => {
     CHAT_LIST.push(chatItem);
     messages.push({ role: AIChatRole.USER, content: message });
 
+    console.log("get message reply from Open AI");
     openAIResponse = await openAiService.getQueryResponse({
         model: OPEN_AI_PAYLOAD_MODEL,
         messages
     });
 
     if(openAIResponse) {
+        console.log(`Reply from open AI:${JSON.stringify(openAIResponse.choices, null, 1)}`);
         receivedChatItem.message = openAIResponse.choices[0].message.content;
         if(contentType === "audio") {
             try {
+                console.log(`Convert open AI reply to audio`);
                 const textToSpeechService = TextToSpeechService.getInstance();
                 const speechAudioFilePath = await textToSpeechService.textToSpeech(receivedChatItem.message);
                 const base64File = await convertFileToBase64(speechAudioFilePath);
@@ -79,6 +84,7 @@ export const chatWithOpenAI = async (req: Request, res: Response ) => {
         }
     } else {
         receivedChatItem = null;
+        console.log(`No reply from open AI for message ${message}`);
     }
     
     receivedChatItem.date = new Date();

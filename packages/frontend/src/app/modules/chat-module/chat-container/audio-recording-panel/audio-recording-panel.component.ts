@@ -2,8 +2,8 @@ import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '
 import { RecordingService } from '@app/services';
 import { BAR_HEIGHT, MAX_AMPLITUDE } from './constants';
 import { ContentType, MessageType, RecordingStatus } from '@app/enums';
-import { scaleValue } from 'src/common';
-import { convertBlobToAudio } from 'src/common/audio';
+import { convertFileToBase64Promise, scaleValue } from 'src/common';
+
 import { ChatItem } from '@app/interface/chat';
 
 @Component({
@@ -34,12 +34,15 @@ export class AudioRecordingPanelComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  /**
+   * 
+   */
   changeRecordingStatus() {
      if(this.recordingStatus === RecordingStatus.STOPPED) {
        this.recordAudio();
      } else {
        const subscription = this.recordingService.stopRecording().subscribe({
-        next: (audioRecordingWebmFile: Blob) => {
+        next: async (audioRecordingWebmFile: Blob) => {
           console.log("Recording ended");
           this.recordingBars = [];
           this.recordingStatus = RecordingStatus.STOPPED;
@@ -47,13 +50,15 @@ export class AudioRecordingPanelComponent implements OnInit {
           if(this.timeElapseIntervalInstance) {
             clearInterval(this.timeElapseIntervalInstance);
           }
+          const file = await convertFileToBase64Promise(audioRecordingWebmFile);
            this.sendAudioChat.emit({
             id: -1,
             date: new Date(),
             username: "",
             contentType: ContentType.AUDIO,
-            message: audioRecordingWebmFile,
-            messageType: MessageType.SENT
+            message: "",
+            messageType: MessageType.SENT,
+            file: file
           });
         },
         complete: () => {
@@ -113,5 +118,11 @@ export class AudioRecordingPanelComponent implements OnInit {
     }, 100); // Update the counter every 10 milliseconds
   
     return timer; // Return the timer ID to allow stopping the timer later if needed
+  }
+
+  cancelRecording() {
+    this.recordingService.cancelRecording();
+    this.recordingStatus = RecordingStatus.STOPPED;
+    this.onRecordingStatusChange.emit(this.recordingStatus);
   }
 }

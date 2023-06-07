@@ -8,5 +8,6 @@ export interface ChatItem {
     date: Date;
     messageType: MessageType
     image?: string | null,
-    username: string
+    username: string,
+    file?: {data: string} //audio file base 64 string
 }

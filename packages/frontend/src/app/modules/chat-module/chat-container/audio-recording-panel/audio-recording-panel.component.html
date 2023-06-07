@@ -7,11 +7,13 @@
         >
         <mat-icon>mic</mat-icon>
     </button>
-    <div class="recording-bar-panel" *ngIf="recordingStatusKeys.RECORDING === recordingStatus ">
+    <div class="recording-bar-panel" *ngIf="recordingStatusKeys.RECORDING === recordingStatus">
         <div class="recording-bar-sub-panel">
             <button 
                     mat-icon-button 
                     class="send-audio-chat"
+                    (click)="changeRecordingStatus()"
+                    [disabled]="recordingStatusKeys.RECORDING !== recordingStatus"
                 >
                 <mat-icon>send</mat-icon>
             </button>
@@ -24,7 +26,7 @@
                >
                </div>
             </div>
-            <button class="stop-button" mat-icon-button >
+            <button class="stop-button" mat-icon-button (click) = "cancelRecording()" >
                 <mat-icon>stop</mat-icon>
             </button>
             <div>

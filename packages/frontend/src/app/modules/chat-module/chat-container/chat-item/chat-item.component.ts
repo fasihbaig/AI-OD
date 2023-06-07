@@ -26,10 +26,19 @@ export class ChatItemComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    const { message = null, messageType, contentType } = this.item;
-    if( message && messageType === MessageType.SENT, contentType === ContentType.AUDIO) {
-      this.updateAudioBlob(this.item.message as Blob)
+    const { messageType, contentType, file = { data: null} } = this.item;
+    if( contentType === ContentType.AUDIO ) {
+      if( 
+        messageType === MessageType.SENT 
+      ) {
+       this.audioSource = file.data;
+      }
+
+      if(messageType === MessageType.RECEIVED) {
+        this.audioSource = `data:audio/webm;base64,${file.data}`;
+      }
     }
+
   }
 
   ngAfterViewInit() {
@@ -46,6 +55,11 @@ export class ChatItemComponent implements OnInit {
     });
   }
 
+  /**
+   * 
+   * @param time 
+   * @returns 
+   */
   private formatTime(time: number): string {
     const minutes = Math.floor(time / 60);
     const seconds = Math.floor(time % 60);
@@ -64,20 +78,4 @@ export class ChatItemComponent implements OnInit {
     }
     return ChatItemPosition.RIGHT;
   }
-
-  /**
-   * 
-   * @param blob 
-   */
-  private updateAudioBlob(blob: Blob) {
-    const reader = new FileReader();
-    reader.onload = (event => {
-      if (event.target && typeof event.target.result === 'string') {
-        this.audioSource = event.target.result;
-      }
-    });
-
-    reader.readAsDataURL(blob);
-  }
-
 }

@@ -1,6 +1,8 @@
 import { AIChatRole, OPEN_AI_PAYLOAD_MODEL, OpenAIService } from "../integrations";
 
 import { Request, Response } from "express";
+import { TextToSpeechService } from "../integrations/text-to-speech";
+import { convertFileToBase64 } from "../utils";
  
 const CHAT_LIST: any[] = [];
 
@@ -64,6 +66,17 @@ export const chatWithOpenAI = async (req: Request, res: Response ) => {
 
     if(openAIResponse) {
         receivedChatItem.message = openAIResponse.choices[0].message.content;
+        if(contentType === "audio") {
+            try {
+                const textToSpeechService = TextToSpeechService.getInstance();
+                const speechAudioFilePath = await textToSpeechService.textToSpeech(receivedChatItem.message);
+                const base64File = await convertFileToBase64(speechAudioFilePath);
+                receivedChatItem.file = { data: base64File }
+                receivedChatItem.contentType = "audio";
+            } catch (error) {
+                console.log(`Unable to convert text to speech, ${error}`);
+            }
+        }
     } else {
         receivedChatItem = null;
     }

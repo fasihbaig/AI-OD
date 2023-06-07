@@ -23,10 +23,7 @@ export class TextToSpeechService {
      */
     public textToSpeech(speechText: string): Promise<string> {
         return new Promise((resolve, reject) => {
-                // Azure Speech Service credentials
-  
-        let audioFile = `${__dirname}/audio$${new Date().getTime()}.webm` //`/tmp/audio$${new Date().getTime()}.webm`;
-            // This example requires environment variables named "SPEECH_KEY" and "SPEECH_REGION"
+            const audioFile = `/tmp/audio${new Date().getTime()}.webm`;
             const speechConfig = SpeechConfig.fromSubscription(
                 process.env.AZURE_SPEECH_COGNITIVE_API_KEY as string,
                 process.env.AZURE_REGION as string

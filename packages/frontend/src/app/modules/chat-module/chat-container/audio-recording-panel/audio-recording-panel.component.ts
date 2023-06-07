@@ -68,6 +68,15 @@ export class AudioRecordingPanelComponent implements OnInit {
      }
   }
 
+  resetData() {
+    this.recordingBars = [];
+    this.timeElapse = "00:00";
+    this.recordingStatus = RecordingStatus.STOPPED;
+    if(this.timeElapseIntervalInstance) {
+      clearInterval(this.timeElapseIntervalInstance);
+    }
+  }
+
   /**
    * function to start recording
    */
@@ -98,17 +107,17 @@ export class AudioRecordingPanelComponent implements OnInit {
    * @returns 
    */
   startTimer(): NodeJS.Timer {
-    var startTime = new Date().getTime(); // Get the current timestamp
+    const startTime = new Date().getTime(); // Get the current timestamp
     
     const that = this;
-    var timer = setInterval(function() {
-      var currentTime = new Date().getTime(); // Get the current timestamp
-      var elapsedTime = currentTime - startTime; // Calculate the elapsed time in milliseconds
+    const timer = setInterval(function() {
+      const currentTime = new Date().getTime(); // Get the current timestamp
+      const elapsedTime = currentTime - startTime; // Calculate the elapsed time in milliseconds
   
       // Convert the elapsed time to hours, minutes, seconds, and milliseconds
-      var hours = Math.floor(elapsedTime / (1000 * 60 * 60));
-      var minutes = Math.floor((elapsedTime % (1000 * 60 * 60)) / (1000 * 60));
-      var seconds = Math.floor((elapsedTime % (1000 * 60)) / 1000);
+      const hours = Math.floor(elapsedTime / (1000 * 60 * 60));
+      const minutes = Math.floor((elapsedTime % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((elapsedTime % (1000 * 60)) / 1000);
   
       that.timeElapse = 
       hours > 0? (hours.toString().padStart(2, '0') + ':') : "" +
@@ -122,7 +131,7 @@ export class AudioRecordingPanelComponent implements OnInit {
 
   cancelRecording() {
     this.recordingService.cancelRecording();
-    this.recordingStatus = RecordingStatus.STOPPED;
+    this.resetData();
     this.onRecordingStatusChange.emit(this.recordingStatus);
   }
 }

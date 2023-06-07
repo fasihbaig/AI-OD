@@ -1,6 +1,6 @@
 {
   "name": "backend",
-  "version": "1.0.0",
+  "version": "v1.13.0",
   "main": "build/app.js",
   "license": "MIT",
   "scripts": {

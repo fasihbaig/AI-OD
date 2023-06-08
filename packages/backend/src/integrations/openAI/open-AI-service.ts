@@ -1,6 +1,6 @@
 import  axios from "axios";
 
-import { AUDIO_TRANSCRIPTION_MODEL, OPEN_AI_AUDIO_TRANSCRIPTION_URL, OPEN_AI_CHAT_API } from "./constants";
+import { API_TIMEOUT, AUDIO_TRANSCRIPTION_MODEL, OPEN_AI_AUDIO_TRANSCRIPTION_URL, OPEN_AI_CHAT_API } from "./constants";
 import { OpenAIChatResponse, OpenAIPayload } from "./types";
 import FormData  from "form-data";
 
@@ -28,7 +28,13 @@ export class OpenAIService {
      */
     public async getQueryResponse(openAiPayload: OpenAIPayload ): Promise<OpenAIChatResponse | null> {
         try {
-            const response = await axios.post(OPEN_AI_CHAT_API, openAiPayload, { headers: this.getOpenAIHeaderValues() });
+            const response = await axios.post(
+                OPEN_AI_CHAT_API, 
+                openAiPayload, 
+                { 
+                    headers: this.getOpenAIHeaderValues(),
+                    timeout: API_TIMEOUT
+                });
             return response.data; 
         } catch (error) {
             console.log(error);
@@ -56,7 +62,8 @@ export class OpenAIService {
                     headers: {
                         ...this.getOpenAIHeaderValues(), 
                         ...formData.getHeaders()
-                    }
+                    },
+                    timeout: API_TIMEOUT
                 }
             );
             return response.data.text; 

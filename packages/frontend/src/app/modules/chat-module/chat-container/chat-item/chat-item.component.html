@@ -15,7 +15,7 @@
 
         <div>
             <div *ngIf="item.contentType === contentTypeKey.AUDIO">
-                <audio  #audioPlayer  [src]="audioSource"  controls type ="audio/webm"></audio>
+                <audio class="audio-player"  #audioPlayer  [src]="audioSource"  controls type ="audio/webm"></audio>
             </div>
             <pre class="text" *ngIf="
             item.contentType === contentTypeKey.TEXT || (

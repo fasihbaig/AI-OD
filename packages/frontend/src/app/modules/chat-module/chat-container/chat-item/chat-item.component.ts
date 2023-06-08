@@ -33,7 +33,6 @@ export class ChatItemComponent implements OnInit {
       ) {
        this.audioSource = file.data;
       }
-
       if(messageType === MessageType.RECEIVED) {
         this.audioSource = `data:audio/webm;base64,${file.data}`;
       }
@@ -43,6 +42,10 @@ export class ChatItemComponent implements OnInit {
 
   ngAfterViewInit() {
     const { message = null, messageType, contentType } = this.item;
+    if(messageType === MessageType.RECEIVED && contentType === ContentType.AUDIO) {
+      this.audioPlayer.nativeElement.load();
+      this.audioPlayer.nativeElement.play()
+    }
     if(!(message && messageType === MessageType.SENT && this.totalTime) || contentType === ContentType.TEXT) {
       return;
     }

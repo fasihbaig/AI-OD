@@ -33,7 +33,7 @@ export class TextToSpeechService {
 
             // The language of the voice that speaks.
             speechConfig.speechSynthesisVoiceName = this.getPersonVoice(language); 
-
+                
             // Create the speech synthesizer.
             var synthesizer: SpeechSynthesizer = new SpeechSynthesizer(speechConfig, audioConfig);
 
@@ -69,7 +69,7 @@ export class TextToSpeechService {
      */
     getPersonVoice(language: LanguageKey): SpeechNarrators {
         if(language === LanguageKey.ENGLISH) {
-            return SpeechNarrators.ASAD;
+            return SpeechNarrators.JENNY;
         }
         if( language === LanguageKey.URDU) {
             return SpeechNarrators.UZMA;

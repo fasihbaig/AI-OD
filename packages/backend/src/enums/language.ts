@@ -5,5 +5,6 @@ export enum LanguageKey {
 
 export enum SpeechNarrators {
     UZMA = "ur-PK-UzmaNeural",
-    ASAD = "ur-PK-AsadNeural"
+    ASAD = "ur-PK-AsadNeural",
+    JENNY = "en-US-JennyNeural"
 }

@@ -33,6 +33,7 @@ export class TextToSpeechService {
 
             // The language of the voice that speaks.
             speechConfig.speechSynthesisVoiceName = this.getPersonVoice(language); 
+            //speechConfig.speechSynthesisLanguage = "en-GB"
 
             // Create the speech synthesizer.
             var synthesizer: SpeechSynthesizer = new SpeechSynthesizer(speechConfig, audioConfig);

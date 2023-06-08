@@ -13,7 +13,7 @@ export type PayloadMessage = {
 
 export type OpenAIChatResponse = {
     id: string,
-    choices: OpenAIResponseChoice[],
+    response: string,
     usage: {
         prompt_tokens: number,
         completion_tokens: number,

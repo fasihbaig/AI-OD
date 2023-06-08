@@ -72,8 +72,8 @@ export const chatWithOpenAI = async (req: Request, res: Response ) => {
     });
 
     if(openAIResponse) {
-        console.log(`Reply from open AI:${JSON.stringify(openAIResponse.choices, null, 1)}`);
-        receivedChatItem.message =`${username} \n ${openAIResponse.choices[0].message.content}`;
+        console.log(`Reply from open AI:${JSON.stringify(openAIResponse.response, null, 1)}`);
+        receivedChatItem.message =`${username} \n ${openAIResponse.response}`;
         if(contentType === "audio") {
             try {
                 console.log(`Convert open AI reply to audio`);

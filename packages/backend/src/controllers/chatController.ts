@@ -42,7 +42,6 @@ export const chatWithOpenAI = async (req: Request, res: Response ) => {
         console.log("Start transcription audio")
         chatItem.file = req.body.file;
         const audioTranscription = await openAiService.getAudioTranscription(chatItem.file);
-        transcriptionLanguage = determineTextLanguage(audioTranscription);
         receivedChatItem.audioTranscription = audioTranscription;
         receivedChatItem.contentType = "text";
         message = audioTranscription;
@@ -81,6 +80,7 @@ export const chatWithOpenAI = async (req: Request, res: Response ) => {
             try {
                 console.log(`Convert open AI reply to audio`);
                 const textToSpeechService = TextToSpeechService.getInstance();
+                transcriptionLanguage = determineTextLanguage(openAIResponse.response);
                 const speechAudioFilePath = await textToSpeechService.textToSpeech(receivedChatItem.message, transcriptionLanguage);
                 const base64File = await convertFileToBase64(speechAudioFilePath);
                 receivedChatItem.file = { data: base64File }

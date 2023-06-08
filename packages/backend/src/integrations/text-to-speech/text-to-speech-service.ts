@@ -33,7 +33,6 @@ export class TextToSpeechService {
 
             // The language of the voice that speaks.
             speechConfig.speechSynthesisVoiceName = this.getPersonVoice(language); 
-            //speechConfig.speechSynthesisLanguage = "en-GB"
 
             // Create the speech synthesizer.
             var synthesizer: SpeechSynthesizer = new SpeechSynthesizer(speechConfig, audioConfig);
@@ -42,7 +41,8 @@ export class TextToSpeechService {
                 return null
             }
 
-            synthesizer.speakTextAsync(speechText,
+            synthesizer.speakSsmlAsync(
+                this.getSpeechTextTemplate(speechText, language),
                     function (result) {
                       if (result.reason === ResultReason.SynthesizingAudioCompleted) {
                         console.log("synthesis finished.");
@@ -70,11 +70,22 @@ export class TextToSpeechService {
      */
     getPersonVoice(language: LanguageKey): SpeechNarrators {
         if(language === LanguageKey.ENGLISH) {
-            return SpeechNarrators.ASAD;
+            return SpeechNarrators.JENNY;
         }
         if( language === LanguageKey.URDU) {
             return SpeechNarrators.UZMA;
         }
         return SpeechNarrators.UZMA;
+    }
+
+    getSpeechTextTemplate(text: string, language: LanguageKey): string {
+        return `<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis"
+                        xmlns:mstts="https://www.w3.org/2001/mstts" xml:lang="${language}">
+                    <voice name="${this.getPersonVoice(language)}">
+                        <mstts:express-as style="friendly" styledegree="2">
+                            ${text}
+                        </mstts:express-as>
+                    </voice>
+                </speak>`;
     }
 }

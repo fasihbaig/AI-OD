@@ -1,6 +1,6 @@
 import  axios from "axios";
 
-import { AUDIO_TRANSCRIPTION_MODEL, OPEN_AI_AUDIO_TRANSCRIPTION_URL, OPEN_AI_CHAT_API } from "./constants";
+import { AUDIO_TRANSCRIPTION_MODEL, CUSTOMIZED_AI_MODEL_SERVER, OPEN_AI_AUDIO_TRANSCRIPTION_URL, OPEN_AI_CHAT_API } from "./constants";
 import { OpenAIChatResponse, OpenAIPayload } from "./types";
 import FormData  from "form-data";
 
@@ -23,13 +23,14 @@ export class OpenAIService {
 
     /**
      * 
-     * @param openAiPayload 
+     * @param payload 
      * @returns 
      */
-    public async getQueryResponse(openAiPayload: OpenAIPayload ): Promise<OpenAIChatResponse | null> {
+    public async getQueryResponse(payload: any): Promise<any | null> {
         try {
-            const response = await axios.post(OPEN_AI_CHAT_API, openAiPayload, { headers: this.getOpenAIHeaderValues() });
-            return response.data; 
+            //const response = await axios.post(OPEN_AI_CHAT_API, openAiPayload, { headers: this.getOpenAIHeaderValues() });
+            const response = await axios.post(CUSTOMIZED_AI_MODEL_SERVER, payload);
+            return response.data.response; 
         } catch (error) {
             console.log(error);
             const message = get(error, "response.data.error.message") || "No information found";

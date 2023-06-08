@@ -65,10 +65,13 @@ export const chatWithOpenAI = async (req: Request, res: Response ) => {
     messages.push({ role: AIChatRole.USER, content: message });
 
     console.log("get message reply from Open AI");
+    // openAIResponse = await openAiService.getQueryResponse({
+    //     model: OPEN_AI_PAYLOAD_MODEL,
+    //     messages,
+    //     max_tokens: 250
+    // });
     openAIResponse = await openAiService.getQueryResponse({
-        model: OPEN_AI_PAYLOAD_MODEL,
-        messages,
-        max_tokens: 250
+        prompt: message
     });
 
     if(openAIResponse) {

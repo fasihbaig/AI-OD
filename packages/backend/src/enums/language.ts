@@ -1,6 +1,6 @@
 export enum LanguageKey {
-    URDU = "urdu",
-    ENGLISH = "english"
+    URDU = "ur-PK",
+    ENGLISH = "en-US"
 }
 
 export enum SpeechNarrators {

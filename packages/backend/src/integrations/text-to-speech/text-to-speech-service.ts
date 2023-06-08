@@ -41,7 +41,8 @@ export class TextToSpeechService {
                 return null
             }
 
-            synthesizer.speakTextAsync(speechText,
+            synthesizer.speakSsmlAsync(
+                this.getSpeechTextTemplate(speechText, language),
                     function (result) {
                       if (result.reason === ResultReason.SynthesizingAudioCompleted) {
                         console.log("synthesis finished.");
@@ -75,5 +76,16 @@ export class TextToSpeechService {
             return SpeechNarrators.UZMA;
         }
         return SpeechNarrators.UZMA;
+    }
+
+    getSpeechTextTemplate(text: string, language: LanguageKey): string {
+        return `<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis"
+                        xmlns:mstts="https://www.w3.org/2001/mstts" xml:lang="${language}">
+                    <voice name="${this.getPersonVoice(language)}">
+                        <mstts:express-as style="friendly" styledegree="2">
+                            ${text}
+                        </mstts:express-as>
+                    </voice>
+                </speak>`;
     }
 }

@@ -97,5 +97,9 @@ export const chatWithOpenAI = async (req: Request, res: Response ) => {
         CHAT_LIST.push(receivedChatItem);
     }
 
+    if(CHAT_LIST.length > 200) { // TEMPORARY CHECK UNTIL WE SAVE MESSAGES IN DB
+        CHAT_LIST.slice(0, 20);
+    }
+
     res.json(receivedChatItem)
 }

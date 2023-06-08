@@ -21,6 +21,14 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
+app.use((req, res, next) => {
+  if (!req.url.includes('/api')) {
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+    return;
+  }
+  next();
+});
+
 app.use(bodyParser.urlencoded({ extended: false}));
 app.use(bodyParser.json());
 

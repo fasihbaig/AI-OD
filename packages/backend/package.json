@@ -7,7 +7,7 @@
     "start:dev": "rm -rf ./build && npx tsc && nodemon",
     "start": "rm -rf ./build && npx tsc && node build/app.js",
     "lint": "eslint . --ext .ts",
-    "build": "npx tsc"
+    "build": "rm -rf ./build && npx tsc"
   },
   "dependencies": {
     "@types/lodash": "^4.14.195",

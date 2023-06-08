@@ -1,0 +1,14 @@
+<div>
+    <div>
+        <h3>Enter your name please:</h3>
+    </div>
+    <div>
+        <mat-form-field class="example-full-width">
+            <mat-label>Name</mat-label>
+            <input matInput [(ngModel)]="name">
+        </mat-form-field>
+    </div>
+    <div class="flex-end">
+        <button mat-raised-button color="primary" (click) ="saveName()">Save</button>
+    </div>
+</div>

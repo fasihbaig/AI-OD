@@ -14,10 +14,16 @@
         </div>
 
         <div>
-            <pre class="text" *ngIf="item.contentType === contentTypeKey.TEXT">{{item.message}}</pre>
             <div *ngIf="item.contentType === contentTypeKey.AUDIO">
                 <audio  #audioPlayer  [src]="audioSource"  controls type ="audio/webm"></audio>
             </div>
+            <pre class="text" *ngIf="
+            item.contentType === contentTypeKey.TEXT || (
+                item.contentType === contentTypeKey.AUDIO &&
+                item.message &&
+                item.messageType === messageTypeKey.RECEIVED
+            )
+            ">{{item.message}}</pre>
             <div *ngIf="item.contentType === contentTypeKey.LOADING">
                 <div class="loading-dots">
                     <span class="dot"></span>

@@ -1,1 +1,1 @@
-export const PERSON_VOICE = "en-US-JennyNeural";
+export const PERSON_VOICE = "ur-PK-UzmaNeural";

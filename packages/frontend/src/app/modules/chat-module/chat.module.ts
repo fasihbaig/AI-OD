@@ -21,6 +21,8 @@ import { AudioRecordingPanelComponent } from './chat-container/audio-recording-p
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { ChatItemComponent } from './chat-container/chat-item/chat-item.component';
 import { OptionBarComponent } from './chat-container/option-bar/option-bar.component';
+import { NameDialogueComponent } from './name-dialogue/name-dialogue.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,8 @@ import { OptionBarComponent } from './chat-container/option-bar/option-bar.compo
     ChatContentContainerComponent,
     AudioRecordingPanelComponent,
     ChatItemComponent,
-    OptionBarComponent
+    OptionBarComponent,
+    NameDialogueComponent
   ],
   imports: [
     CommonModule,
@@ -41,6 +44,7 @@ import { OptionBarComponent } from './chat-container/option-bar/option-bar.compo
     FormsModule,
     MatIconModule,
     MatProgressBarModule,
+    MatDialogModule
   ]
 })
 export class ChatModuleModule { }

@@ -2,7 +2,8 @@ import { AIChatRole } from "./constants";
 
 export type OpenAIPayload = {
     model: string,
-    messages: PayloadMessage[]
+    messages: PayloadMessage[],
+    max_tokens: any
 }
 
 export type PayloadMessage = {
@@ -17,7 +18,7 @@ export type OpenAIChatResponse = {
         prompt_tokens: number,
         completion_tokens: number,
         total_tokens: number
-    }
+    },
 }
 
 export type OpenAIResponseChoice = {

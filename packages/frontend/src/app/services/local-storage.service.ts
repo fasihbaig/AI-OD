@@ -27,5 +27,12 @@ export class LocalStorageService {
         return `${Math.floor(Math.random() * 100000)}${new Date().getTime()}`
     }
 
-    
+
+    public setName(name: string) {
+        window.localStorage.setItem("name", name)
+    }
+
+    public getName(): string | null {
+       return window.localStorage.getItem("name")
+    }  
 }

@@ -1,15 +1,17 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { ContentType, MessageType, RecordingStatus } from '@app/enums';
 import { ChatItem } from '@app/interface/chat';
-import { ChatService, RecordingService } from '@app/services';
+import { ChatService, LocalStorageService, RecordingService } from '@app/services';
 import { Subscription } from 'rxjs';
+import { NameDialogueComponent } from '../../name-dialogue/name-dialogue.component';
 
 @Component({
   selector: 'app-chat-form',
   templateUrl: './chat-form.component.html',
   styleUrls: ['./chat-form.component.scss']
 })
-export class ChatFormComponent implements OnInit, OnDestroy {
+export class ChatFormComponent implements OnInit, OnDestroy, AfterViewInit {
  
   @Input() chatList: ChatItem[] = [];
 
@@ -20,6 +22,8 @@ export class ChatFormComponent implements OnInit, OnDestroy {
   public recordingStatusKeys = RecordingStatus;
 
   private subscriptions: Subscription[] = [];
+
+  public username: string | null = null;
 
   private loadingChatItem = {
       id: -1,
@@ -33,10 +37,19 @@ export class ChatFormComponent implements OnInit, OnDestroy {
 
   constructor(
     private recordingService: RecordingService,
-    private chatService: ChatService
+    private chatService: ChatService,
+    public dialog: MatDialog,
+    public localStorageService: LocalStorageService
   ) { }
 
   ngOnInit(): void {
+  }
+
+  ngAfterViewInit() {
+    this.username = this.localStorageService.getName();
+    if(!this.username){
+      this.openDialog();
+    }
   }
 
 
@@ -52,8 +65,9 @@ export class ChatFormComponent implements OnInit, OnDestroy {
       date: new Date(),
       messageType: MessageType.SENT,
       image: null,
-      username: ""
-    }
+      username: this.username
+    } as ChatItem;
+
     this.chatList.push(chantItem);
     this.chatList.push(this.loadingChatItem);
     this.chatService.postChat(chantItem).subscribe({
@@ -95,6 +109,7 @@ export class ChatFormComponent implements OnInit, OnDestroy {
    */
   async sendAudioChat(item: ChatItem) {
     item.message = "";
+    item.username = this.username as string;
     this.chatList.push(item);
    this.chatList.push(this.loadingChatItem);
     this.subscriptions.push(
@@ -131,5 +146,16 @@ export class ChatFormComponent implements OnInit, OnDestroy {
     this.subscriptions.forEach(subscriber => {
       subscriber.unsubscribe()
     })
+  }
+
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(NameDialogueComponent, {disableClose: true} );
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.username = result.name;
+      if(this.username)
+      this.localStorageService.setName(this.username)
+    });
   }
 }

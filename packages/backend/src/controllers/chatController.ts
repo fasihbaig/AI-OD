@@ -2,12 +2,13 @@ import { AIChatRole, OPEN_AI_PAYLOAD_MODEL, OpenAIService } from "../integration
 
 import { Request, Response } from "express";
 import { TextToSpeechService } from "../integrations/text-to-speech";
-import { convertFileToBase64 } from "../utils";
+import { convertFileToBase64, determineTextLanguage, } from "../utils";
+import { LanguageKey } from "../enums";
  
 const CHAT_LIST: any[] = [];
 
 export const chatWithOpenAI = async (req: Request, res: Response ) => {
-    const { messageType, contentType, date } = req.body;
+    const { messageType, contentType, date, username } = req.body;
     let { message } = req.body;
     const { session } = req.headers;
 
@@ -36,10 +37,12 @@ export const chatWithOpenAI = async (req: Request, res: Response ) => {
         audioTranscription: ""
     };
 
+    let transcriptionLanguage = LanguageKey.ENGLISH;
     if(contentType === "audio") {
         console.log("Start transcription audio")
         chatItem.file = req.body.file;
         const audioTranscription = await openAiService.getAudioTranscription(chatItem.file);
+        transcriptionLanguage = determineTextLanguage(audioTranscription);
         receivedChatItem.audioTranscription = audioTranscription;
         receivedChatItem.contentType = "text";
         message = audioTranscription;
@@ -64,17 +67,18 @@ export const chatWithOpenAI = async (req: Request, res: Response ) => {
     console.log("get message reply from Open AI");
     openAIResponse = await openAiService.getQueryResponse({
         model: OPEN_AI_PAYLOAD_MODEL,
-        messages
+        messages,
+        max_tokens: 250
     });
 
     if(openAIResponse) {
         console.log(`Reply from open AI:${JSON.stringify(openAIResponse.choices, null, 1)}`);
-        receivedChatItem.message = openAIResponse.choices[0].message.content;
+        receivedChatItem.message =`${username} \n ${openAIResponse.choices[0].message.content}`;
         if(contentType === "audio") {
             try {
                 console.log(`Convert open AI reply to audio`);
                 const textToSpeechService = TextToSpeechService.getInstance();
-                const speechAudioFilePath = await textToSpeechService.textToSpeech(receivedChatItem.message);
+                const speechAudioFilePath = await textToSpeechService.textToSpeech(receivedChatItem.message, transcriptionLanguage);
                 const base64File = await convertFileToBase64(speechAudioFilePath);
                 receivedChatItem.file = { data: base64File }
                 receivedChatItem.contentType = "audio";

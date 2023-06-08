@@ -2,6 +2,7 @@ import { SpeechSynthesizer, SpeechConfig, AudioConfig, ResultReason } from "micr
 
 import readline from "readline";
 import { PERSON_VOICE } from "./constants";
+import { LanguageKey, SpeechNarrators } from "../../enums";
 
 export class TextToSpeechService {
 
@@ -21,7 +22,7 @@ export class TextToSpeechService {
      * @param speechText 
      * @returns 
      */
-    public textToSpeech(speechText: string): Promise<string> {
+    public textToSpeech(speechText: string, language: LanguageKey): Promise<string> {
         return new Promise((resolve, reject) => {
             const audioFile = `/tmp/audio${new Date().getTime()}.webm`;
             const speechConfig = SpeechConfig.fromSubscription(
@@ -31,7 +32,7 @@ export class TextToSpeechService {
             const audioConfig = AudioConfig.fromAudioFileOutput(audioFile);
 
             // The language of the voice that speaks.
-            speechConfig.speechSynthesisVoiceName = PERSON_VOICE; 
+            speechConfig.speechSynthesisVoiceName = this.getPersonVoice(language); 
 
             // Create the speech synthesizer.
             var synthesizer: SpeechSynthesizer = new SpeechSynthesizer(speechConfig, audioConfig);
@@ -59,5 +60,20 @@ export class TextToSpeechService {
                 });
                 console.log("Now synthesizing to: " + audioFile);
             });
+    }
+
+    /**
+     * 
+     * @param language 
+     * @returns 
+     */
+    getPersonVoice(language: LanguageKey): SpeechNarrators {
+        if(language === LanguageKey.ENGLISH) {
+            return SpeechNarrators.ASAD;
+        }
+        if( language === LanguageKey.URDU) {
+            return SpeechNarrators.UZMA;
+        }
+        return SpeechNarrators.UZMA;
     }
 }
